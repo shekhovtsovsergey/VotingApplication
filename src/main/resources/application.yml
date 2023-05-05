@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: voting
+
+  datasource:
+    url: jdbc:postgresql://${APP_DB_HOST:127.0.0.1}:${APP_DB_PORT:5432}/${APP_DB_NAME:postgres}?ApplicationName=${spring.application.name}
+    username: ${APP_DB_USERNAME:postgres}
+    password: ${APP_DB_PASSWORD:postgres}
