@@ -98,3 +98,6 @@ class VoteApiTest {
         assertEquals(initialVotesNo + newVotesNo, currentVotesNo);
     }
 }
+
+
+// ДЗ переписать тесты

@@ -39,7 +39,7 @@ class VoteServiceTest {
 
     @Test
     void saveRandomVotes() {
-        var random = ThreadLocalRandom.current();
+        var random = ThreadLocalRandom.current();//новое
 
         var expectedVotesYes = random.nextInt(10) + 1; // at lease one vote
         var expectedVotesNo = random.nextInt(10) + 1; // at lease one vote
@@ -48,6 +48,8 @@ class VoteServiceTest {
         var n = expectedVotesNo;
 
         var vote = (Consumer<String>) voteValue -> service.save(UUID.randomUUID().toString(), voteValue);
+        //Consumer<String> функциональный интерфейс
+
 
         while (y > 0 && n > 0) {
             var voteValue = random.nextBoolean() ? "YES" : "NO";

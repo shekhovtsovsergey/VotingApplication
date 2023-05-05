@@ -44,13 +44,19 @@ class VoteApi {
             return;
         }
 
+        //mathes
+        //посчитали результат и сохранили вычисления а дальше результат сравниваем
+
+
         service.save(request.get("userId"), request.get("voteValue"));
+        //место для опечаток
     }
 
     @GetMapping("/votes/stats")
     Map<String, Object> getStats() {
         return Map.of("totalYes", service.getStats()[0], "totalNo", service.getStats()[1]);
     }
+    // можно возвращать мапу
 }
 
 @Service
@@ -79,7 +85,7 @@ class VoteService {
                 create table if not exists voting (
                     id serial not null primary key,
                     user_id uuid not null unique,
-                    vote_value varchar(3) check (vote_value in ('YES', 'NO'))
+                    vote_value varchar(3) check (vote_value in ('YES', 'NO'))  // not null
                 )""", Map.of());
 
         db.update("""
@@ -88,10 +94,14 @@ class VoteService {
                 values
                     (:userId, :voteValue)
                 on
-                    conflict(user_id)
+                    conflict(user_id)  
                 do
                     nothing""", Map.of("userId", UUID.fromString(userId), "voteValue", voteValue));
+// конфликт ду ничего образец можно использовать
 
+
+        //конкуренция так как контроллер работает в многопоточном режиме
+        //atomic integer
         switch (voteValue) {
             case "YES" -> votesYes++;
             case "NO" -> votesNo++;
